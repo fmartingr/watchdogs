@@ -1,0 +1,13 @@
+# WatchDog client configuration
+server = "localhost:3333"
+name = "worker1"
+
+expose = [
+    "hostname",
+    "type",
+    "platform",
+    "arch",
+    "uptime",
+    "load",
+    "memory"
+]

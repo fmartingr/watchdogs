@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title></title>
+    <script src="http://localhost:3333/socket.io/socket.io.js"></script>
+    <script>
+    window.onload = function() {
+        var socket = io.connect('http://localhost:3333');
+        socket.on('connect', function() {
+
+        })
+        function lol() {
+            socket.emit('get_info', { server: 'worker1' }, function(data) {
+                console.log(data)
+            });
+        }
+        btn = document.getElementById('lol')
+        btn.onclick = function() {
+            lol()
+        }
+    }
+
+
+    </script>
+</head>
+<body>
+    <button id="lol">LOL</button>
+</body>
+</html>
