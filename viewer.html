@@ -1,28 +1,63 @@
 <html>
 <head>
     <title></title>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
     <script src="http://localhost:3333/socket.io/socket.io.js"></script>
+    <script src="http://localhost:3333/viewer?key=test"></script>
     <script>
-    window.onload = function() {
-        var socket = io.connect('http://localhost:3333');
-        socket.on('connect', function() {
+    window.addEventListener('WatchdogLoaded', function() {
+        watchdog.onupdate = function(name) {
+            table = document.querySelector('table')
+            tr = document.querySelector('tr#' + name)
+            if (!tr) {
+                tr = document.createElement('tr')
+                tr.id = name
+                cols = ['name', 'uptime', 'load', 'memory']
+                for (col in cols) {
+                    td = document.createElement('td')
+                    td.classList.add(cols[col])
+                    tr.appendChild(td)
+                }
+                table.appendChild(tr)
+            }
+            tr.querySelector('.name').innerText = this.servers[name].hostname
+            tr.querySelector('.uptime').innerText = this.servers[name].uptime/60/60 + "h"
+            load_text = ''
+            for (load in this.servers[name].load) {
+                original = this.servers[name].load[load]
+                load_text = load_text + Math.round(original*100)/100 + ', '
+            }
+            tr.querySelector('.load').innerText = load_text
 
-        })
-        function lol() {
-            socket.emit('get_info', { server: 'worker1' }, function(data) {
-                console.log(data)
-            });
+            mem_text = (Math.round(this.servers[name].free_memory/1024/1024)*100/100) + "MB / " + (Math.round(this.servers[name].total_memory/1024/1024)*100/100) + "MB"
+            tr.querySelector('.memory').innerText = mem_text
+
         }
-        btn = document.getElementById('lol')
-        btn.onclick = function() {
-            lol()
-        }
-    }
-
-
+    })
     </script>
 </head>
 <body>
-    <button id="lol">LOL</button>
+    <div class="container">
+        <h1>Watchdog</h1>
+        <table class="table table-bordered">
+            <thead>
+                <th>
+                    name
+                </th>
+                <th>
+                    uptime
+                </th>
+                <th>
+                    load
+                </th>
+                <th>
+                    free memory
+                </th>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

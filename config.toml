@@ -1,1 +1,5 @@
 key = "test"
+port = 3333
+hostname = "localhost:3333"
+update_interval = 5 # Seconds
+cache_updates = true

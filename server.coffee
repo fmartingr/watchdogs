@@ -1,11 +1,21 @@
 # Requirements
 fs = require 'fs'
 toml = require 'tomljs'
-io = require 'socket.io'
+express = require 'express'
+http = require 'http'
+socketio = require 'socket.io'
+fs = require 'fs'
+
+# Server
+app = express()
+server = http.createServer app
+io = socketio.listen server
 
 # Globals
-servers = {}
-viewers = []
+SERVERS     = {}  # Registed servers
+INFO        = {}  # Cached info of servers
+VIEWERS     = []  # Registed viewers
+_UPDATERS   = {}  # setTimeout IDs
 
 # Reading the config
 try
@@ -17,28 +27,76 @@ catch error
     process.exit(-1)
 
 # Startup
-console.log 'server stuff'
-server = io.listen(3333)
+app.get '/viewer', (request, response) ->
+    if request.query.key == config.key
+        file = __dirname + '/viewer.js'
+        handler = fs.createReadStream file
+
+        handler.pipe response
+    else
+        response.end "Invalid key."
 
 # Connection handling
-server.on 'connection', (socket) ->
+io.on 'connection', (socket) ->
     socket.on 'register', (type, name, callback) ->
         if type == 'server'
             console.log "[register] #{type}: #{name}"
-            servers[name] = socket
+            socket._name = name
+            SERVERS[name] = socket
+
+            socket._update = (callback) ->
+                this.emit 'info', (data) ->
+                    INFO[this._name] = data
+                    if callback
+                        callback data
+                    for viewer in VIEWERS
+                        viewer.emit 'update', this._name, data
+
+            _UPDATERS[name] = setInterval ->
+                socket._update()
+            , config.update_interval*1000
+
             callback 'ack'
-        else if type == 'viewer'
+        else
             if name != config.key
+                callback 'Invalid key.'
                 socket.disconnect()
             else
                 console.log "[register] #{type} #{socket.id}"
-                viewers.push socket.id
+                VIEWERS.push socket
                 callback 'ack'
 
-    socket.on 'get_info', (options, callback) ->
-        if socket.id in viewers
-            server = options['server']
-            servers[server].emit 'info', (data) =>
-                callback(data)
+    socket.on 'disconnect', ->
+        clearInterval _UPDATERS[socket._name]
+        _UPDATERS[socket._name] = null
+
+    socket.on 'getServers', (callback) ->
+        if socket.id in VIEWERS
+            callback(SERVERS)
         else
-            callback({ error: 'You need to register first!'})
+            callback error: 'Not registered.'
+
+    socket.on 'getInfo', (name, callback) ->
+        if socket.id in VIEWERS
+            if name of SERVERS
+                if config.cache_updates
+                    callback INFO[name]
+                else
+                    SERVERS[name]._update (data) =>
+                        callback(data)
+            else
+                callback error: 'Server not found!'
+        else
+            callback error: 'Not registered.'
+
+# Listen
+server.listen config.port
+
+console.log """
+            -------------------------------------------------------------
+            | WatchDog Server [ONLINE]
+            | Scripts to include in your application:
+            | http://#{config.hostname}/socket.io/socket.io.js
+            | http://#{config.hostname}/viewer?key=#{config.key}
+            -------------------------------------------------------------
+            """
