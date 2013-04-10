@@ -1,5 +1,15 @@
+# Server key for viewer connections
 key = "test"
+
+# Port to websockets/js server
 port = 3333
+
+# Full hostname and port (if needed) WITHOUT PROTOCOL
 hostname = "localhost:3333"
-update_interval = 5 # Seconds
+
+# Update interval to check server status (in seconds)
+update_interval = 5
+
+# If a viewer request server info, should it be requested to
+# the server or should we send the info we have stored?
 cache_updates = true

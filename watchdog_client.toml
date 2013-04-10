@@ -1,7 +1,13 @@
 # WatchDog client configuration
+
+# Watchdog server host and port (if needed) WITHOUT PROTOCOL
 server = "localhost:3333"
+
+# Server name (must be unique)
 name = "worker1"
 
+# Services to expose
+# -> hostname, type, platform, arch, uptime, load, memory
 expose = [
     "hostname",
     "type",

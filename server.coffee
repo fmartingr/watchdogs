@@ -55,7 +55,7 @@ io.on 'connection', (socket) ->
                     if callback
                         callback data
                     this._sendUpdate()
-
+            socket._update()
             _UPDATERS[name] = setInterval ->
                 socket._update()
             , config.update_interval*1000
