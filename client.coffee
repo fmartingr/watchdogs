@@ -16,6 +16,9 @@ catch error
 # Functions 
 getSystemInfo = ->
     sysinfo = {}
+
+    sysinfo.status = 'online'
+
     if 'hostname' in config.expose
         sysinfo.hostname = os.hostname()
     

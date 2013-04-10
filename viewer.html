@@ -12,7 +12,7 @@
             if (!tr) {
                 tr = document.createElement('tr')
                 tr.id = name
-                cols = ['name', 'uptime', 'load', 'memory']
+                cols = ['name', 'status', 'uptime', 'load', 'memory']
                 for (col in cols) {
                     td = document.createElement('td')
                     td.classList.add(cols[col])
@@ -21,7 +21,8 @@
                 table.appendChild(tr)
             }
             tr.querySelector('.name').innerText = this.servers[name].hostname
-            tr.querySelector('.uptime').innerText = this.servers[name].uptime/60/60 + "h"
+            tr.querySelector('.status').innerText = this.servers[name].status
+            tr.querySelector('.uptime').innerText = Math.round((this.servers[name].uptime/60/60)*100/100) + "h"
             load_text = ''
             for (load in this.servers[name].load) {
                 original = this.servers[name].load[load]
@@ -43,6 +44,9 @@
             <thead>
                 <th>
                     name
+                </th>
+                <th>
+                    status
                 </th>
                 <th>
                     uptime

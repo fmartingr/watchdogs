@@ -39,18 +39,22 @@ app.get '/viewer', (request, response) ->
 # Connection handling
 io.on 'connection', (socket) ->
     socket.on 'register', (type, name, callback) ->
+        socket._type = type
         if type == 'server'
             console.log "[register] #{type}: #{name}"
             socket._name = name
             SERVERS[name] = socket
+
+            socket._sendUpdate = ->
+                for viewer in VIEWERS
+                    viewer.emit 'update', this._name, INFO[this._name]
 
             socket._update = (callback) ->
                 this.emit 'info', (data) ->
                     INFO[this._name] = data
                     if callback
                         callback data
-                    for viewer in VIEWERS
-                        viewer.emit 'update', this._name, data
+                    this._sendUpdate()
 
             _UPDATERS[name] = setInterval ->
                 socket._update()
@@ -67,8 +71,11 @@ io.on 'connection', (socket) ->
                 callback 'ack'
 
     socket.on 'disconnect', ->
-        clearInterval _UPDATERS[socket._name]
-        _UPDATERS[socket._name] = null
+        if socket._type == 'server'
+            clearInterval _UPDATERS[socket._name]
+            _UPDATERS[socket._name] = null
+            INFO[socket._name].status = 'offline'
+            socket._sendUpdate()
 
     socket.on 'getServers', (callback) ->
         if socket.id in VIEWERS
