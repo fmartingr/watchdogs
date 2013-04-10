@@ -1,0 +1,8 @@
+☐ Create NPM package
+☐ Create bin files for server and client (for easy usage)
+☐ Check if mandatory config variables are set (or use defaults)
+☐ Organize the folders so coffeescript and javascript are stored on git.
+ Viewer:
+☐ Create a class for easy manage servers
+  ☐ Return values in KB, MB, GB... Hr, min, secs... etc.
+  ☐ Return normalized output to 2 decimals
