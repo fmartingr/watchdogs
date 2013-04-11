@@ -16,25 +16,11 @@
 
   fs = require('fs');
 
-  app = express();
-
-  server = http.createServer(app);
-
-  io = socketio.listen(server);
-
   config_file = 'watchdogs.toml';
 
   if (process.argv[2]) {
     config_file = process.argv[2];
   }
-
-  SERVERS = {};
-
-  INFO = {};
-
-  VIEWERS = [];
-
-  _UPDATERS = {};
 
   try {
     file = fs.readFileSync(config_file).toString();
@@ -43,6 +29,20 @@
     console.log('Error: Configuration file not found!');
     process.exit(-1);
   }
+
+  app = express();
+
+  server = http.createServer(app);
+
+  io = socketio.listen(server);
+
+  SERVERS = {};
+
+  INFO = {};
+
+  VIEWERS = [];
+
+  _UPDATERS = {};
 
   app.get('/viewer', function(request, response) {
     var handler;

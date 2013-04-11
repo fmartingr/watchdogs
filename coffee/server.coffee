@@ -6,22 +6,11 @@ http = require 'http'
 socketio = require 'socket.io'
 fs = require 'fs'
 
-# Server
-app = express()
-server = http.createServer app
-io = socketio.listen server
-
+# Reading the config
 config_file = 'watchdogs.toml'
 if process.argv[2]
     config_file = process.argv[2]
 
-# Globals
-SERVERS     = {}  # Registed servers
-INFO        = {}  # Cached info of servers
-VIEWERS     = []  # Registed viewers
-_UPDATERS   = {}  # setTimeout IDs
-
-# Reading the config
 try
     file = fs.readFileSync(config_file).toString()
     config = toml file
@@ -29,6 +18,17 @@ try
 catch error
     console.log 'Error: Configuration file not found!'
     process.exit -1
+
+# Server
+app = express()
+server = http.createServer app
+io = socketio.listen server
+
+# Globals
+SERVERS     = {}  # Registed servers
+INFO        = {}  # Cached info of servers
+VIEWERS     = []  # Registed viewers
+_UPDATERS   = {}  # setTimeout IDs
 
 # Startup
 app.get '/viewer', (request, response) ->
