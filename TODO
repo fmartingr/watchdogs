@@ -1,8 +1,10 @@
-☐ Create NPM package
-☐ Create bin files for server and client (for easy usage)
+✔ Create NPM package @done (13-04-11 13:44)
+✔ Create bin files for server and client (for easy usage) @done (13-04-11 13:44)
 ☐ Check if mandatory config variables are set (or use defaults)
-☐ Organize the folders so coffeescript and javascript are stored on git.
+✔ Organize the folders so coffeescript and javascript are stored on git. @done (13-04-11 13:44)
+☐ Create libs and bin files in separated files, so people can play around without the binary files.
+☐ Check if a client with the name is already registered before registering it twice (overwriting)
  Viewer:
 ☐ Create a class for easy manage servers
   ☐ Return values in KB, MB, GB... Hr, min, secs... etc.
-  ☐ Return normalized output to 2 decimals
+  ☐ Normalized output to 2 decimals
