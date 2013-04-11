@@ -1,12 +1,16 @@
 {
   "name": "watchdog",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Very simple system monitor.",
   "main": "app.js",
+  "bin": {
+    "server": "./bin/watchdog_server",
+    "client": "./bin/watchdog_client"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
+  "repository": "git://github.com/fmartingr/watchdog.git",
   "author": "Felipe Martin",
   "license": "GPLv2",
   "dependencies": {

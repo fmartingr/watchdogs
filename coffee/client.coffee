@@ -5,10 +5,14 @@ io = require 'socket.io-client'
 os = require 'os'
 
 # Reading the config
+
+config_file = 'watchdog.toml'
+if process.argv[2]
+    config_file = process.argv[2]
+
 try
-    file = fs.readFileSync('watchdog_client.toml').toString()
+    file = fs.readFileSync(config_file).toString()
     config = toml file
-    #console.log config
 catch error
     console.log 'Error: Configuration file not found!'
     process.exit(-1)

@@ -11,6 +11,10 @@ app = express()
 server = http.createServer app
 io = socketio.listen server
 
+config_file = 'watchdog.toml'
+if process.argv[2]
+    config_file = process.argv[2]
+
 # Globals
 SERVERS     = {}  # Registed servers
 INFO        = {}  # Cached info of servers
@@ -19,17 +23,17 @@ _UPDATERS   = {}  # setTimeout IDs
 
 # Reading the config
 try
-    file = fs.readFileSync('config.toml').toString()
+    file = fs.readFileSync(config_file).toString()
     config = toml file
     #console.log config
 catch error
     console.log 'Error: Configuration file not found!'
-    process.exit(-1)
+    process.exit -1
 
 # Startup
 app.get '/viewer', (request, response) ->
     if request.query.key == config.key
-        file = __dirname + '/viewer.js'
+        file = __dirname + '/../lib/viewer.js'
         handler = fs.createReadStream file
 
         handler.pipe response
