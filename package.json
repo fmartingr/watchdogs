@@ -1,6 +1,6 @@
 {
   "name": "watchdogs",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Very simple system monitor.",
   "main": "app.js",
   "bin": {
