@@ -11,7 +11,7 @@ app = express()
 server = http.createServer app
 io = socketio.listen server
 
-config_file = 'watchdog.toml'
+config_file = 'watchdogs.toml'
 if process.argv[2]
     config_file = process.argv[2]
 
@@ -105,7 +105,7 @@ server.listen config.port
 
 console.log """
             -------------------------------------------------------------
-            | WatchDog Server [ONLINE]
+            | WatchDogs Server [ONLINE]
             | Scripts to include in your application:
             | http://#{config.hostname}/socket.io/socket.io.js
             | http://#{config.hostname}/viewer?key=#{config.key}

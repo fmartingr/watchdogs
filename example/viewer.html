@@ -5,8 +5,8 @@
     <script src="http://localhost:3333/socket.io/socket.io.js"></script>
     <script src="http://localhost:3333/viewer?key=test"></script>
     <script>
-    window.addEventListener('WatchdogLoaded', function() {
-        watchdog.onupdate = function(name) {
+    window.addEventListener('WatchdogsLoaded', function() {
+        watchdogs.onupdate = function(name) {
             table = document.querySelector('table')
             tr = document.querySelector('tr#' + name)
             if (!tr) {
@@ -39,7 +39,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Watchdog</h1>
+        <h1>Watchdogs</h1>
         <table class="table table-bordered">
             <thead>
                 <th>

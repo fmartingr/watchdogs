@@ -11,7 +11,7 @@
 
   os = require('os');
 
-  config_file = 'watchdog.toml';
+  config_file = 'watchdogs.toml';
 
   if (process.argv[2]) {
     config_file = process.argv[2];

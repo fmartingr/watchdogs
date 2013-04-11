@@ -21,7 +21,7 @@
 
   io = socketio.listen(server);
 
-  config_file = 'watchdog.toml';
+  config_file = 'watchdogs.toml';
 
   if (process.argv[2]) {
     config_file = process.argv[2];
@@ -140,6 +140,6 @@
 
   server.listen(config.port);
 
-  console.log("-------------------------------------------------------------\n| WatchDog Server [ONLINE]\n| Scripts to include in your application:\n| http://" + config.hostname + "/socket.io/socket.io.js\n| http://" + config.hostname + "/viewer?key=" + config.key + "\n-------------------------------------------------------------");
+  console.log("-------------------------------------------------------------\n| WatchDogs Server [ONLINE]\n| Scripts to include in your application:\n| http://" + config.hostname + "/socket.io/socket.io.js\n| http://" + config.hostname + "/viewer?key=" + config.key + "\n-------------------------------------------------------------");
 
 }).call(this);

@@ -6,7 +6,7 @@ os = require 'os'
 
 # Reading the config
 
-config_file = 'watchdog.toml'
+config_file = 'watchdogs.toml'
 if process.argv[2]
     config_file = process.argv[2]
 

@@ -1,12 +1,12 @@
-WatchDog
-========
+WatchDogs
+=========
 
 A simple server monitoring tool written in node and websockets.
 
 ## The client-server-viewer on diagram
 
 ```
-      WATCHDOG
+      WATCHDOGS
        CLIENTS                                       +----------------+
   +---------------+                                  |     Viewer     |
   |   Server 1    |+-----+                           +----------------+
@@ -15,7 +15,7 @@ A simple server monitoring tool written in node and websockets.
   +---------------+      |                                   | Connect using
   |   Server 2    |+-----|  +----------------+               |      key
   +---------------+      |  |                |               |
-                         +->|    Watchdog    |<--------------+
+                         +->|    Watchdogs   |<--------------+
   +---------------+      |  |     Server     |
   |   Server 3    |+-----|  |                |
   +---------------+      |  +----------------+

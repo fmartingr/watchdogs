@@ -20,7 +20,7 @@ getHostInfo = ->
             break
     return hostname: hostname, key: key
 
-watchdog = 
+watchdogs = 
     socket: null
     servers: {}
 
@@ -52,8 +52,8 @@ window.addEventListener 'DOMContentLoaded', ->
                 console.error 'Error registering on server.'
             else
                 loadEvent = document.createEvent "Event"
-                window.watchdog = watchdog
-                window.watchdog.socket = socket
-                window.watchdog.start()
-                loadEvent.initEvent "WatchdogLoaded", true, true
+                window.watchdogs = watchdogs
+                window.watchdogs.socket = socket
+                window.watchdogs.start()
+                loadEvent.initEvent "WatchdogsLoaded", true, true
                 document.dispatchEvent loadEvent
