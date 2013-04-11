@@ -1,11 +1,11 @@
 {
   "name": "watchdogs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Very simple system monitor.",
   "main": "app.js",
   "bin": {
-    "server": "./bin/watchdogs_server",
-    "client": "./bin/watchdogs_client"
+    "watchdogs_server": "./bin/watchdogs_server",
+    "watchdogs_client": "./bin/watchdogs_client"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,6 +16,7 @@
   "dependencies": {
     "tomljs": "~0.1.3",
     "socket.io": "~0.9.14",
-    "socket.io-client": "~0.9.11"
+    "socket.io-client": "~0.9.11",
+    "express": "~3.1.1"
   }
 }
