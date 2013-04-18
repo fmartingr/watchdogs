@@ -101,22 +101,11 @@ Registered on server.
 
 The server must show something like: `[register] server: srv1` and a lot of websockets transactions after that (depeding on the update interval you configured).
 
-Repeat for every client and you just need to conect to your server from your HTML files via websockets and start parsing the data:
+Repeat for every client you need.
 
-```
-["srv1", {
-        "status": "online",
-        "hostname": "workstation.local",
-        "type": "Darwin",
-        "platform": "darwin",
-        "arch": "x64",
-        "uptime": 785295,
-        "load": [3.08154296875, 2.9853515625, 2.78271484375],
-        "total_memory": 8589934592,
-        "free_memory": 248696832
-    }
-]
-```
+### Viewer ([see example](https://github.com/fmartingr/watchdogs/blob/master/example/viewer.html))
+
+Register your code to the event `WatchdogsLoaded`, inside that do wathever you want. You have access to the `watchdogs` object that can give you a list of the servers, and overriding the `onUpdate` method you will receive changes whenever new server info is received.
 
 ## TODO
 
