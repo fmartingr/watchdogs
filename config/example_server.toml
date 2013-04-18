@@ -8,7 +8,7 @@ port = 3333
 hostname = "localhost:3333"
 
 # Update interval to check server status (in seconds)
-update_interval = 5
+update_interval = 1
 
 # If a viewer request server info, should it be requested to
 # the server or should we send the info we have stored?

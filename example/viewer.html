@@ -8,6 +8,7 @@
     window.addEventListener('WatchdogsLoaded', function() {
         watchdogs.onupdate = function(name) {
             table = document.querySelector('table')
+
             tr = document.querySelector('tr#' + name)
             if (!tr) {
                 tr = document.createElement('tr')
@@ -20,19 +21,13 @@
                 }
                 table.appendChild(tr)
             }
-            tr.querySelector('.name').innerText = this.servers[name].hostname
-            tr.querySelector('.status').innerText = this.servers[name].status
-            tr.querySelector('.uptime').innerText = Math.round((this.servers[name].uptime/60/60)*100/100) + "h"
-            load_text = ''
-            for (load in this.servers[name].load) {
-                original = this.servers[name].load[load]
-                load_text = load_text + Math.round(original*100)/100 + ', '
-            }
-            tr.querySelector('.load').innerText = load_text
 
-            mem_text = (Math.round(this.servers[name].free_memory/1024/1024)*100/100) + "MB / " + (Math.round(this.servers[name].total_memory/1024/1024)*100/100) + "MB"
-            tr.querySelector('.memory').innerText = mem_text
-
+            server = this.servers[name]
+            tr.querySelector('.name').innerText = server.getHostname()
+            tr.querySelector('.status').innerText = server.getStatus()
+            tr.querySelector('.uptime').innerText = server.getUptime()
+            tr.querySelector('.load').innerText = server.getLoad()
+            tr.querySelector('.memory').innerText = server.getMemory()
         }
     })
     </script>

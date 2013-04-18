@@ -5,6 +5,6 @@
 ☐ Create libs and bin files in separated files, so people can play around without the binary files.
 ☐ Check if a client with the name is already registered before registering it twice (overwriting)
  Viewer:
-☐ Create a class for easy manage servers
-  ☐ Return values in KB, MB, GB... Hr, min, secs... etc.
-  ☐ Normalized output to 2 decimals
+✔ Create a class for easy manage servers @done (13-04-18 17:50)
+  ✔ Return values in KB, MB, GB... Hr, min, secs... etc. @done (13-04-18 17:50)
+  ✔ Normalized output to 2 decimals @done (13-04-18 17:50)
